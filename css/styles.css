@@ -2527,10 +2527,261 @@ button:focus-visible {
   transform: translate(3px, -3px);
 }
 /* ----------------------------------------------------------
+   CRM CASE STUDY / WORKFLOW STRUCTURE
+---------------------------------------------------------- */
+
+.crm-system {
+  padding: 110px 0;
+
+  border-top: 1px solid var(--line);
+
+  background: var(--bg-soft);
+}
+
+.crm-flow {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+
+  border-top: 1px solid var(--line-dark);
+  border-left: 1px solid var(--line-dark);
+}
+
+.crm-step {
+  min-height: 300px;
+
+  display: flex;
+  flex-direction: column;
+
+  gap: 34px;
+
+  padding: 28px;
+
+  border-right: 1px solid var(--line-dark);
+  border-bottom: 1px solid var(--line-dark);
+}
+
+.crm-step-number {
+  color: var(--ink-faint);
+
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  font-weight: 650;
+
+  letter-spacing: 0.07em;
+}
+
+.crm-step > div {
+  margin-top: auto;
+}
+
+.crm-step-type {
+  margin: 0 0 10px;
+
+  color: var(--blue);
+
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  font-weight: 650;
+
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+}
+
+.crm-step h3 {
+  margin: 0;
+
+  font-size: clamp(1.5rem, 2.5vw, 2.15rem);
+  font-weight: 600;
+
+  line-height: 1.08;
+  letter-spacing: -0.04em;
+}
+
+.crm-step p:not(.crm-step-type) {
+  margin: 18px 0 0;
+
+  color: var(--ink-soft);
+
+  line-height: 1.7;
+}
+/* ----------------------------------------------------------
+   CRM CASE STUDY / AUTOMATION & BUSINESS LOGIC
+---------------------------------------------------------- */
+
+.crm-logic {
+  padding: 110px 0;
+
+  border-top: 1px solid var(--line);
+}
+
+.crm-logic-grid {
+  display: grid;
+  grid-template-columns:
+    minmax(0, 1.25fr)
+    minmax(280px, 0.75fr);
+
+  gap: 80px;
+
+  align-items: start;
+}
+
+.crm-rules {
+  border-top: 1px solid var(--line);
+}
+
+.crm-rule {
+  display: grid;
+  grid-template-columns: 70px 1fr;
+
+  gap: 30px;
+
+  padding: 34px 0;
+
+  border-bottom: 1px solid var(--line);
+}
+
+.crm-rule-number {
+  color: var(--ink-faint);
+
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  font-weight: 650;
+}
+
+.crm-rule-label {
+  margin: 0 0 10px;
+
+  color: var(--blue);
+
+  font-family: var(--mono);
+  font-size: 0.64rem;
+  font-weight: 650;
+
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+}
+
+.crm-rule h3 {
+  max-width: 650px;
+
+  margin: 0;
+
+  font-size: clamp(1.45rem, 2.7vw, 2.2rem);
+  font-weight: 600;
+
+  line-height: 1.1;
+  letter-spacing: -0.04em;
+}
+
+.crm-rule p:not(.crm-rule-label) {
+  max-width: 650px;
+
+  margin: 18px 0 0;
+
+  color: var(--ink-soft);
+
+  line-height: 1.75;
+}
+
+
+/* Simplified workflow panel */
+
+.crm-logic-panel {
+  position: sticky;
+  top: 110px;
+
+  border: 1px solid var(--line-dark);
+
+  background: var(--surface);
+}
+
+.crm-panel-label {
+  margin: 0;
+
+  padding: 14px 16px;
+
+  border-bottom: 1px solid var(--line);
+
+  color: var(--blue);
+
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  font-weight: 650;
+
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.crm-logic-line {
+  display: grid;
+  grid-template-columns: 70px 1fr;
+
+  gap: 18px;
+
+  padding: 16px;
+
+  border-bottom: 1px solid var(--line);
+}
+
+.crm-logic-line span {
+  color: var(--ink-faint);
+
+  font-family: var(--mono);
+  font-size: 0.64rem;
+  font-weight: 700;
+
+  letter-spacing: 0.07em;
+}
+
+.crm-logic-line p {
+  margin: 0;
+
+  color: var(--ink);
+
+  font-family: var(--mono);
+  font-size: 0.72rem;
+
+  line-height: 1.55;
+}
+
+.crm-panel-note {
+  padding: 16px;
+}
+
+.crm-panel-note p {
+  margin: 0 0 6px;
+
+  color: var(--ink-faint);
+
+  font-family: var(--mono);
+  font-size: 0.61rem;
+
+  line-height: 1.6;
+}
+
+.crm-panel-note p:last-child {
+  margin-bottom: 0;
+}
+/* ----------------------------------------------------------
    TABLET / SMALL LAPTOP
 ---------------------------------------------------------- */
 
 @media (max-width: 1050px) {
+  .crm-logic-grid {
+  grid-template-columns: 1fr;
+
+  gap: 52px;
+}
+
+.crm-logic-panel {
+  position: static;
+
+  max-width: 650px;
+}
+
+  .crm-flow {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
 
     .reporting-grid {
   grid-template-columns: 1fr;
@@ -2665,6 +2916,28 @@ button:focus-visible {
 ---------------------------------------------------------- */
 
 @media (max-width: 760px) {
+  .crm-logic {
+  padding: 82px 0;
+}
+
+.crm-rule {
+  grid-template-columns: 42px 1fr;
+
+  gap: 18px;
+
+  padding: 30px 0;
+}
+  .crm-system {
+  padding: 82px 0;
+}
+
+.crm-flow {
+  grid-template-columns: 1fr;
+}
+
+.crm-step {
+  min-height: 0;
+}
     .case-next {
   padding: 72px 0;
 }
