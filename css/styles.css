@@ -5,7 +5,7 @@
 
 
 /* ----------------------------------------------------------
-   DESIGN TOKENS
+   DESIGN
 ---------------------------------------------------------- */
 
 :root {
@@ -127,6 +127,16 @@ button:focus-visible {
 /* ----------------------------------------------------------
    HEADER
 ---------------------------------------------------------- */
+
+.logo-photo {
+  width: 38px;
+  height: 38px;
+
+  object-fit: cover;
+
+  border: 1px solid var(--line-dark);
+  border-radius: 50%;
+}
 
 .site-header {
   position: sticky;
