@@ -1,85 +1,70 @@
 # Prinel Pillay — Developer Portfolio
 
-Personal portfolio showcasing professional web development, digital systems, automation and software engineering work.
+Web development, digital systems, automation and software engineering work.
+
+**Live portfolio:** https://prinelope.github.io/
 
 ## About
 
-I’m a Web Developer & Software Engineer with professional experience across websites, digital systems, CRM, workflow automation and UX.
+I’m a Web Developer & Software Engineer with experience across websites, digital systems, CRM, workflow automation and UX.
 
-A lot of my work involves taking processes that are complicated or manual and finding a clearer, more practical way to make them work.
+A lot of my work involves looking at processes that are complicated or manual and finding a clearer, more practical way to make them work.
 
 ## Featured Work
 
 ### Executive Function Assessment Platform
 
-A multi-step digital assessment designed and developed for Connections in Mind.
+A multi-step digital assessment I developed for Connections in Mind.
 
-The project includes:
+The project involved:
 
-- multi-step user experience
-- JavaScript validation and scoring logic
-- executive function domain calculations
+- building the multi-step assessment interface
+- JavaScript validation and scoring
+- grouping responses into executive function domains
 - structured data handling
 - webhook integration
-- automated reporting workflow
-- personalised report delivery
+- connecting the assessment to an automated reporting process
+- supporting personalised report delivery
 
-A full case study is included in the portfolio.
+The portfolio includes a full case study showing the interface, scoring approach and wider data flow.
 
 ### CRM & Workflow Automation
 
-A CRM and operational workflow implemented for Connections in Mind using Odoo.
+A CRM and operational workflow I worked on for Connections in Mind using Odoo.
 
-The system connects:
+The workflow connects client records, CRM opportunities, pipeline stages and project delivery.
 
-- client records
-- CRM opportunities
-- pipeline stages
-- workflow automation
-- project delivery
+My work included configuring the CRM structure, defining fields and stages, designing workflow logic and supporting automation between different parts of the system.
 
-The goal was to reduce repetitive administration and create a clearer operational process.
+The aim was to reduce repeated manual admin and make it easier to see where a client was in the process.
 
 ## Current Technical Focus
 
-I’m continuing to develop deeper software engineering skills through projects focused on:
+I’m continuing to build my software engineering skills through projects involving:
 
 - full-stack development
-- APIs
-- databases
-- data analysis
-- Python
+- APIs and databases
+- Python and data analysis
 - motorsport technology
 
 ## Technologies
 
 ### Development
 
-HTML  
-CSS  
-JavaScript  
-Git  
-GitHub
+HTML / CSS / JavaScript / Git / GitHub
 
 ### Systems & Automation
 
-Odoo  
-CRM  
-Zapier  
-Webhooks  
-Google Apps Script
+Odoo / CRM / Zapier / Webhooks / Google Apps Script
 
 ### Web Platforms
 
-WordPress  
-WooCommerce  
-LearnDash  
-MemberPress
+WordPress / WooCommerce / LearnDash / MemberPress
 
 ## Portfolio Structure
 
 ```text
-prinel-portfolio/
+Prinelope.github.io/
 ├── assets/
 │   └── images/
 ├── css/
