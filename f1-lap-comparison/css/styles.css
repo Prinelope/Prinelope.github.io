@@ -334,6 +334,38 @@ select:focus {
     width: min(100% - 28px, var(--max-width));
   }
 
+  .lap-chart-heading {
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.lap-chart-wrapper {
+  padding: 12px;
+}
+
+  .driver-results {
+  grid-template-columns: 1fr;
+}
+
+.driver-result {
+  padding: 22px;
+}
+
+.analysis-row {
+  grid-template-columns: 1fr;
+  gap: 5px;
+
+  padding: 18px 0;
+}
+
+.analysis-row > span:last-child {
+  margin-top: 2px;
+}
+
+.overall-result {
+  padding: 22px;
+}
+
   .site-header {
     padding: 64px 0 50px;
   }
@@ -365,4 +397,410 @@ select:focus {
   #results {
     padding: 24px 20px;
   }
+}
+/* ----------------------------------------------------------
+   DRIVER COMPARISON RESULTS
+---------------------------------------------------------- */
+
+.driver-results {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+
+  margin-bottom: 36px;
+}
+
+.driver-result {
+  padding: 28px;
+
+  border: 1px solid var(--line);
+  background: var(--surface-light);
+}
+
+.driver-result-label,
+.analysis-label {
+  margin: 0 0 10px;
+
+  color: var(--red);
+
+  font-family: "Courier New", monospace;
+  font-size: 0.68rem;
+  font-weight: 700;
+
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.driver-result h3 {
+  margin: 0;
+
+  font-size: clamp(1.6rem, 3vw, 2.4rem);
+  line-height: 1;
+  letter-spacing: -0.035em;
+}
+
+.driver-team {
+  margin: 10px 0 24px;
+
+  color: var(--text-soft);
+}
+
+.driver-stats {
+  margin: 0;
+}
+
+.driver-stats div {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+
+  padding: 12px 0;
+
+  border-top: 1px solid var(--line);
+}
+
+.driver-stats dt {
+  color: var(--text-soft);
+
+  font-size: 0.85rem;
+}
+
+.driver-stats dd {
+  margin: 0;
+
+  color: var(--white);
+
+  font-family: "Courier New", monospace;
+  font-weight: 700;
+}
+
+
+/* ----------------------------------------------------------
+   ANALYSIS
+---------------------------------------------------------- */
+
+.comparison-analysis {
+  margin-top: 12px;
+
+  border-top: 1px solid var(--line-light);
+}
+
+.analysis-label {
+  margin-top: 28px;
+}
+
+.analysis-row {
+  display: grid;
+  grid-template-columns: 150px 1fr auto;
+  gap: 20px;
+  align-items: center;
+
+  padding: 16px 0;
+
+  border-bottom: 1px solid var(--line);
+}
+
+.analysis-row > span:first-child {
+  color: var(--text-soft);
+
+  font-size: 0.82rem;
+  text-transform: uppercase;
+}
+
+.analysis-row strong {
+  color: var(--white);
+
+  font-size: 1rem;
+}
+
+.analysis-row > span:last-child {
+  color: var(--text-soft);
+
+  font-family: "Courier New", monospace;
+  font-size: 0.78rem;
+}
+
+
+/* ----------------------------------------------------------
+   OVERALL RESULT
+---------------------------------------------------------- */
+
+.overall-result {
+  margin-top: 30px;
+  padding: 26px 28px;
+
+  border-left: 4px solid var(--red);
+
+  background: #101013;
+}
+
+.overall-result p {
+  margin: 0 0 8px;
+
+  color: var(--red);
+
+  font-family: "Courier New", monospace;
+  font-size: 0.68rem;
+  font-weight: 700;
+
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.overall-result h3 {
+  margin: 0;
+
+  font-size: clamp(1.4rem, 3vw, 2rem);
+
+  line-height: 1.2;
+}
+
+
+/* ----------------------------------------------------------
+   DATA NOTE
+---------------------------------------------------------- */
+
+.data-note {
+  margin-top: 28px !important;
+
+  color: #77777f !important;
+
+  font-family: "Courier New", monospace;
+  font-size: 0.7rem;
+
+  line-height: 1.6;
+}
+/* ----------------------------------------------------------
+   LAP-BY-LAP PACE CHART
+---------------------------------------------------------- */
+
+.lap-chart-section {
+  margin-top: 48px;
+  padding-top: 34px;
+
+  border-top: 1px solid var(--line);
+}
+
+.lap-chart-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 30px;
+
+  margin-bottom: 28px;
+}
+
+.lap-chart-heading h3 {
+  margin: 0;
+
+  font-size: clamp(1.5rem, 3vw, 2.2rem);
+  line-height: 1;
+}
+
+.chart-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.chart-legend span {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  color: var(--text-soft);
+
+  font-family: "Courier New", monospace;
+  font-size: 0.72rem;
+}
+
+.legend-line {
+  display: inline-block;
+
+  width: 24px;
+  height: 3px;
+}
+
+.driver-a-line {
+  background: var(--red);
+}
+
+.driver-b-line {
+  background: var(--white);
+}
+
+
+.lap-chart-wrapper {
+  overflow-x: auto;
+
+  padding: 20px;
+
+  border: 1px solid var(--line);
+
+  background: #0d0d10;
+}
+
+.lap-chart {
+  display: block;
+
+  width: 100%;
+  min-width: 620px;
+  height: auto;
+}
+
+
+/* Axis */
+
+.chart-axis {
+  stroke: #46464d;
+  stroke-width: 1;
+}
+
+.chart-axis-title,
+.chart-lap-label {
+  fill: #77777f;
+
+  font-family: "Courier New", monospace;
+  font-size: 11px;
+
+  letter-spacing: 1px;
+}
+
+
+/* Driver lines */
+
+.pace-line {
+  fill: none;
+
+  stroke-width: 3;
+
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.pace-line-a {
+  stroke: var(--red);
+}
+
+.pace-line-b {
+  stroke: var(--white);
+}
+
+
+/* Data points */
+
+.pace-point {
+  stroke-width: 2;
+
+  cursor: pointer;
+}
+
+.pace-point-a {
+  fill: var(--red);
+  stroke: #0d0d10;
+}
+
+.pace-point-b {
+  fill: var(--white);
+  stroke: #0d0d10;
+}
+
+.pace-point:hover {
+  stroke: var(--white);
+  stroke-width: 4;
+}
+
+
+/* Note */
+
+.chart-note {
+  margin-top: 14px !important;
+
+  color: #77777f !important;
+
+  font-family: "Courier New", monospace;
+  font-size: 0.7rem;
+
+  line-height: 1.6;
+}
+/* ----------------------------------------------------------
+   LAP DELTA TABLE
+---------------------------------------------------------- */
+
+.lap-delta-section {
+  margin-top: 48px;
+  padding-top: 34px;
+
+  border-top: 1px solid var(--line);
+}
+
+.lap-delta-heading {
+  margin-bottom: 26px;
+}
+
+.lap-delta-heading h3 {
+  margin: 0;
+
+  font-size: clamp(1.5rem, 3vw, 2.2rem);
+
+  line-height: 1;
+}
+
+.lap-table-wrapper {
+  overflow-x: auto;
+
+  border: 1px solid var(--line);
+}
+
+.lap-table {
+  width: 100%;
+  min-width: 720px;
+
+  border-collapse: collapse;
+
+  background: #0d0d10;
+}
+
+.lap-table th,
+.lap-table td {
+  padding: 15px 18px;
+
+  border-bottom: 1px solid var(--line);
+
+  text-align: left;
+}
+
+.lap-table th {
+  color: #77777f;
+
+  font-family: "Courier New", monospace;
+  font-size: 0.66rem;
+
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.lap-table td {
+  color: var(--text-soft);
+
+  font-family: "Courier New", monospace;
+  font-size: 0.78rem;
+}
+
+.lap-table tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+.driver-a-winner {
+  color: var(--red) !important;
+  font-weight: 700;
+}
+
+.driver-b-winner {
+  color: var(--white) !important;
+  font-weight: 700;
+}
+
+.lap-table tbody tr:hover {
+  background: var(--surface-light);
 }
