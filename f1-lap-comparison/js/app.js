@@ -1,150 +1,283 @@
-// ----------------------------------------------------------
+// ==========================================================
 // F1 LAP COMPARISON TOOL
 // Prinel Pillay
 //
-// Synthetic development data is currently used to test
-// the application's comparison and calculation logic.
-//
-// These lap times are NOT official Formula 1 timing data.
+// This project currently uses a synthetic simulation model.
+// Lap times and driver pace values are illustrative only.
+// They are NOT official Formula 1 timing data or predictions.
+// ==========================================================
+
+
+// ----------------------------------------------------------
+// TRACK DATA
 // ----------------------------------------------------------
 
+const tracks = {
+
+monza: {
+  name: "Monza",
+  country: "Italy",
+
+  referenceLap: 80.500,
+  lapVariation: 0.45,
+
+  type: "Permanent circuit",
+  speedProfile: "Very high",
+  technicalDemand: "Medium",
+  overtaking: "Moderate",
+
+  image: "assets/tracks/monza.jpg"
+},
+
+silverstone: {
+  name: "Silverstone",
+  country: "United Kingdom",
+
+  referenceLap: 86.800,
+  lapVariation: 0.50,
+
+  type: "Permanent circuit",
+  speedProfile: "High",
+  technicalDemand: "High",
+  overtaking: "Moderate",
+
+  image: "assets/tracks/silverstone.jpg"
+},
+
+spa: {
+  name: "Spa-Francorchamps",
+  country: "Belgium",
+
+  referenceLap: 105.500,
+  lapVariation: 0.65,
+
+  type: "Permanent circuit",
+  speedProfile: "Very high",
+  technicalDemand: "High",
+  overtaking: "Moderate",
+
+  image: "assets/tracks/spa.jpg"
+},
+
+suzuka: {
+  name: "Suzuka",
+  country: "Japan",
+
+  referenceLap: 91.500,
+  lapVariation: 0.55,
+
+  type: "Permanent circuit",
+  speedProfile: "High",
+  technicalDemand: "Very high",
+  overtaking: "Difficult",
+
+  image: "assets/tracks/suzuka.jpg"
+},
+
+monaco: {
+  name: "Monaco",
+  country: "Monaco",
+
+  referenceLap: 73.800,
+  lapVariation: 0.48,
+
+  type: "Street circuit",
+  speedProfile: "Low",
+  technicalDemand: "Very high",
+  overtaking: "Very difficult",
+
+  image: "assets/tracks/monaco.jpg"
+}
+
+};
+
+// ----------------------------------------------------------
+// SESSION DATA
+//
+// These settings control how the development simulation
+// behaves for each session type.
+//
+// They are illustrative rules, not real Formula 1 models.
+// ----------------------------------------------------------
+
+const sessions = {
+
+  qualifying: {
+    name: "Qualifying simulation",
+
+    lapCount: 5,
+
+    paceAdjustment: -0.25,
+
+    variationMultiplier: 0.75
+  },
+
+
+  race: {
+    name: "Race pace simulation",
+
+    lapCount: 8,
+
+    paceAdjustment: 1.80,
+
+    variationMultiplier: 1.15
+  },
+
+
+  practice: {
+    name: "Practice simulation",
+
+    lapCount: 6,
+
+    paceAdjustment: 0.80,
+
+    variationMultiplier: 1.35
+  }
+
+};
 
 // ----------------------------------------------------------
 // DRIVER DATA
+//
+// simulatedPaceOffset is part of the development model only.
+// A lower value produces a slightly quicker simulated pace.
+// It is not a real-world performance rating.
 // ----------------------------------------------------------
 
 const drivers = {
+
   NOR: {
     name: "Lando Norris",
     team: "McLaren",
-    laps: [80.421, 80.115, 79.982, 80.246, 80.038]
+    simulatedPaceOffset: 0.10
   },
 
   PIA: {
     name: "Oscar Piastri",
     team: "McLaren",
-    laps: [80.512, 80.084, 80.143, 80.301, 79.951]
+    simulatedPaceOffset: 0.14
   },
 
   RUS: {
     name: "George Russell",
     team: "Mercedes",
-    laps: [80.334, 80.108, 80.021, 80.176, 80.090]
+    simulatedPaceOffset: 0.18
   },
 
   ANT: {
     name: "Kimi Antonelli",
     team: "Mercedes",
-    laps: [80.683, 80.394, 80.221, 80.498, 80.307]
+    simulatedPaceOffset: 0.32
   },
 
   LEC: {
     name: "Charles Leclerc",
     team: "Ferrari",
-    laps: [80.249, 80.037, 79.906, 80.184, 80.011]
+    simulatedPaceOffset: 0.12
   },
 
   HAM: {
     name: "Lewis Hamilton",
     team: "Ferrari",
-    laps: [80.401, 80.176, 80.008, 80.267, 80.103]
+    simulatedPaceOffset: 0.20
   },
 
   VER: {
     name: "Max Verstappen",
     team: "Red Bull Racing",
-    laps: [80.190, 79.978, 79.841, 80.022, 79.916]
+    simulatedPaceOffset: 0.08
   },
 
   HAD: {
     name: "Isack Hadjar",
     team: "Red Bull Racing",
-    laps: [80.604, 80.372, 80.194, 80.438, 80.251]
+    simulatedPaceOffset: 0.34
   },
 
   LAW: {
     name: "Liam Lawson",
     team: "Racing Bulls",
-    laps: [80.771, 80.506, 80.328, 80.612, 80.417]
+    simulatedPaceOffset: 0.42
   },
 
   LIN: {
     name: "Arvid Lindblad",
     team: "Racing Bulls",
-    laps: [80.884, 80.623, 80.411, 80.703, 80.529]
+    simulatedPaceOffset: 0.48
   },
 
   GAS: {
     name: "Pierre Gasly",
     team: "Alpine",
-    laps: [80.712, 80.458, 80.289, 80.547, 80.361]
+    simulatedPaceOffset: 0.36
   },
 
   COL: {
     name: "Franco Colapinto",
     team: "Alpine",
-    laps: [80.903, 80.676, 80.481, 80.741, 80.598]
+    simulatedPaceOffset: 0.46
   },
 
   OCO: {
     name: "Esteban Ocon",
     team: "Haas",
-    laps: [80.752, 80.497, 80.338, 80.582, 80.421]
+    simulatedPaceOffset: 0.40
   },
 
   BEA: {
     name: "Oliver Bearman",
     team: "Haas",
-    laps: [80.821, 80.561, 80.374, 80.649, 80.466]
+    simulatedPaceOffset: 0.43
   },
 
   HUL: {
     name: "Nico Hulkenberg",
     team: "Audi",
-    laps: [80.793, 80.542, 80.351, 80.624, 80.439]
+    simulatedPaceOffset: 0.38
   },
 
   BOR: {
     name: "Gabriel Bortoleto",
     team: "Audi",
-    laps: [80.918, 80.664, 80.472, 80.739, 80.557]
+    simulatedPaceOffset: 0.45
   },
 
   SAI: {
     name: "Carlos Sainz",
     team: "Williams",
-    laps: [80.528, 80.281, 80.116, 80.364, 80.207]
+    simulatedPaceOffset: 0.26
   },
 
   ALB: {
     name: "Alexander Albon",
     team: "Williams",
-    laps: [80.612, 80.369, 80.194, 80.448, 80.283]
+    simulatedPaceOffset: 0.30
   },
 
   ALO: {
     name: "Fernando Alonso",
     team: "Aston Martin",
-    laps: [80.579, 80.326, 80.151, 80.414, 80.239]
+    simulatedPaceOffset: 0.24
   },
 
   STR: {
     name: "Lance Stroll",
     team: "Aston Martin",
-    laps: [80.849, 80.602, 80.423, 80.691, 80.506]
+    simulatedPaceOffset: 0.41
   },
 
   PER: {
     name: "Sergio Perez",
     team: "Cadillac",
-    laps: [80.731, 80.482, 80.301, 80.569, 80.389]
+    simulatedPaceOffset: 0.35
   },
 
   BOT: {
     name: "Valtteri Bottas",
     team: "Cadillac",
-    laps: [80.694, 80.446, 80.267, 80.531, 80.352]
+    simulatedPaceOffset: 0.33
   }
+
 };
 
 
@@ -152,13 +285,229 @@ const drivers = {
 // PAGE ELEMENTS
 // ----------------------------------------------------------
 
-const compareButton = document.getElementById("compare-button");
+const compareButton =
+  document.getElementById("compare-button");
 
-const driverASelect = document.getElementById("driver-a");
+const trackSelect =
+  document.getElementById("track");
 
-const driverBSelect = document.getElementById("driver-b");
+  const sessionSelect =
+  document.getElementById("session");
 
-const results = document.getElementById("results");
+const driverASelect =
+  document.getElementById("driver-a");
+
+const driverBSelect =
+  document.getElementById("driver-b");
+
+const results =
+  document.getElementById("results");
+
+const trackName =
+  document.getElementById("track-name");
+
+const trackCountry =
+  document.getElementById("track-country");
+
+const trackImage =
+  document.getElementById("track-image");
+
+  const trackType =
+  document.getElementById("track-type");
+
+const trackSpeed =
+  document.getElementById("track-speed");
+
+const trackTechnical =
+  document.getElementById("track-technical");
+
+const trackOvertaking =
+  document.getElementById("track-overtaking");
+
+
+// ----------------------------------------------------------
+// TRACK DISPLAY
+// ----------------------------------------------------------
+
+function updateTrackDisplay() {
+
+  const selectedTrack =
+    tracks[trackSelect.value];
+
+  trackName.textContent =
+    selectedTrack.name;
+
+  trackCountry.textContent =
+    selectedTrack.country;
+
+    trackType.textContent =
+  selectedTrack.type;
+
+trackSpeed.textContent =
+  selectedTrack.speedProfile;
+
+trackTechnical.textContent =
+  selectedTrack.technicalDemand;
+
+trackOvertaking.textContent =
+  selectedTrack.overtaking;
+
+  trackImage.src =
+    selectedTrack.image;
+
+  trackImage.alt =
+    `${selectedTrack.name} circuit layout`;
+}
+
+
+trackSelect.addEventListener(
+  "change",
+  updateTrackDisplay
+);
+
+updateTrackDisplay();
+
+
+// ----------------------------------------------------------
+// DETERMINISTIC DEVELOPMENT NOISE
+//
+// This gives us repeatable variation rather than completely
+// random results every time the compare button is pressed.
+// ----------------------------------------------------------
+
+function createNumberFromText(text) {
+
+  let hash = 0;
+
+  for (let index = 0; index < text.length; index++) {
+
+    hash =
+      ((hash << 5) - hash) +
+      text.charCodeAt(index);
+
+    hash = hash | 0;
+  }
+
+  return Math.abs(hash);
+}
+
+
+function getSeededVariation(seed) {
+
+  const value =
+    Math.sin(seed) * 10000;
+
+  return value - Math.floor(value);
+}
+
+// ----------------------------------------------------------
+// CIRCUIT VARIATION MODEL
+//
+// Circuit characteristics influence how much simulated
+// lap-to-lap variation is applied.
+//
+// These are development rules for the simulation, not
+// real Formula 1 performance calculations.
+// ----------------------------------------------------------
+
+function getCircuitVariationMultiplier(track) {
+
+  let multiplier = 1;
+
+
+  // More technically demanding circuits create slightly
+  // greater simulated lap-to-lap variation.
+
+  if (track.technicalDemand === "High") {
+    multiplier += 0.10;
+  }
+
+  if (track.technicalDemand === "Very high") {
+    multiplier += 0.20;
+  }
+
+
+  // Street circuits receive a small additional variation.
+
+  if (track.type === "Street circuit") {
+    multiplier += 0.10;
+  }
+
+
+  return multiplier;
+}
+
+// ----------------------------------------------------------
+// GENERATE SIMULATED LAPS
+// ----------------------------------------------------------
+
+function generateLaps(
+  driver,
+  driverCode,
+  track,
+  trackCode,
+  session,
+  sessionCode
+) {
+
+  const laps = [];
+
+  const circuitVariation =
+    track.lapVariation *
+    getCircuitVariationMultiplier(track) *
+    session.variationMultiplier;
+
+
+  for (
+    let lapIndex = 0;
+    lapIndex < session.lapCount;
+    lapIndex++
+  ) {
+
+    const seed =
+      createNumberFromText(
+        `${trackCode}-${sessionCode}-${driverCode}-${lapIndex}`
+      );
+
+
+    const variation =
+      (
+        getSeededVariation(seed) - 0.5
+      ) * circuitVariation;
+
+
+    // Small progression across the simulated run.
+    // Earlier laps receive a little more time.
+    // Later laps gradually move closer to the baseline.
+
+    const progress =
+      session.lapCount === 1
+        ? 0
+        : lapIndex / (session.lapCount - 1);
+
+
+    const lapProgression =
+      0.18 - (progress * 0.24);
+
+
+    const lapTime =
+      track.referenceLap +
+      session.paceAdjustment +
+      driver.simulatedPaceOffset +
+      variation +
+      lapProgression;
+
+
+    laps.push(
+      Number(
+        lapTime.toFixed(3)
+      )
+    );
+  }
+
+
+  return laps;
+}
 
 
 // ----------------------------------------------------------
@@ -166,6 +515,7 @@ const results = document.getElementById("results");
 // ----------------------------------------------------------
 
 function getFastestLap(laps) {
+
   return Math.min(...laps);
 }
 
@@ -175,9 +525,13 @@ function getFastestLap(laps) {
 // ----------------------------------------------------------
 
 function getAverageLap(laps) {
-  const total = laps.reduce(function (sum, lap) {
-    return sum + lap;
-  }, 0);
+
+  const total =
+    laps.reduce(function (sum, lap) {
+
+      return sum + lap;
+
+    }, 0);
 
   return total / laps.length;
 }
@@ -186,26 +540,39 @@ function getAverageLap(laps) {
 // ----------------------------------------------------------
 // CONSISTENCY
 //
-// This calculates the standard deviation of the lap times.
-//
-// A smaller number means the driver's lap times are closer
-// together and therefore more consistent.
+// Standard deviation of lap times.
+// Lower = more consistent.
 // ----------------------------------------------------------
 
 function getConsistency(laps) {
-  const average = getAverageLap(laps);
 
-  const squaredDifferences = laps.map(function (lap) {
-    return Math.pow(lap - average, 2);
-  });
+  const average =
+    getAverageLap(laps);
 
-  const totalSquaredDifference =
-    squaredDifferences.reduce(function (sum, value) {
-      return sum + value;
-    }, 0);
+  const squaredDifferences =
+    laps.map(function (lap) {
+
+      return Math.pow(
+        lap - average,
+        2
+      );
+    });
+
+
+  const total =
+    squaredDifferences.reduce(
+      function (sum, value) {
+
+        return sum + value;
+
+      },
+      0
+    );
+
 
   const variance =
-    totalSquaredDifference / laps.length;
+    total / laps.length;
+
 
   return Math.sqrt(variance);
 }
@@ -213,35 +580,29 @@ function getConsistency(laps) {
 
 // ----------------------------------------------------------
 // FORMAT LAP TIME
-//
-// Converts a value such as:
-//
-// 79.982
-//
-// into:
-//
-// 1:19.982
 // ----------------------------------------------------------
 
 function formatLapTime(seconds) {
-  const minutes = Math.floor(seconds / 60);
+
+  const minutes =
+    Math.floor(seconds / 60);
 
   const remainingSeconds =
     seconds - minutes * 60;
+
 
   return `${minutes}:${remainingSeconds
     .toFixed(3)
     .padStart(6, "0")}`;
 }
 
+
 // ----------------------------------------------------------
-// LAP-BY-LAP CHART
-//
-// Creates a responsive SVG line chart directly from the
-// drivers' lap-time arrays.
+// LAP-BY-LAP PACE CHART
 // ----------------------------------------------------------
 
 function buildLapChart(driverA, driverB) {
+
   const width = 800;
   const height = 280;
 
@@ -252,61 +613,104 @@ function buildLapChart(driverA, driverB) {
     left: 65
   };
 
+
   const allLaps = [
     ...driverA.laps,
     ...driverB.laps
   ];
 
-  const fastestTime = Math.min(...allLaps);
-  const slowestTime = Math.max(...allLaps);
 
-  // Add a little space above and below the data.
-  const chartMin = fastestTime - 0.1;
-  const chartMax = slowestTime + 0.1;
+  const fastestTime =
+    Math.min(...allLaps);
+
+  const slowestTime =
+    Math.max(...allLaps);
+
+
+  const chartMin =
+    fastestTime - 0.1;
+
+  const chartMax =
+    slowestTime + 0.1;
+
 
   const chartWidth =
-    width - padding.left - padding.right;
+    width -
+    padding.left -
+    padding.right;
 
   const chartHeight =
-    height - padding.top - padding.bottom;
+    height -
+    padding.top -
+    padding.bottom;
 
 
   function getX(index, totalLaps) {
+
     if (totalLaps === 1) {
-      return padding.left + chartWidth / 2;
+
+      return (
+        padding.left +
+        chartWidth / 2
+      );
     }
+
 
     return (
       padding.left +
-      (index / (totalLaps - 1)) * chartWidth
+      (
+        index /
+        (totalLaps - 1)
+      ) *
+      chartWidth
     );
   }
 
 
   function getY(lapTime) {
+
     const percentage =
-      (lapTime - chartMin) /
-      (chartMax - chartMin);
+      (
+        lapTime -
+        chartMin
+      ) /
+      (
+        chartMax -
+        chartMin
+      );
+
 
     return (
       padding.top +
-      percentage * chartHeight
+      percentage *
+      chartHeight
     );
   }
 
 
   function createPoints(laps) {
+
     return laps
       .map(function (lap, index) {
-        return `${getX(index, laps.length)},${getY(lap)}`;
+
+        return `${getX(
+          index,
+          laps.length
+        )},${getY(lap)}`;
+
       })
       .join(" ");
   }
 
 
-  function createCircles(laps, className) {
+  function createCircles(
+    laps,
+    className
+  ) {
+
     return laps
       .map(function (lap, index) {
+
         return `
           <circle
             class="${className}"
@@ -319,32 +723,41 @@ function buildLapChart(driverA, driverB) {
             </title>
           </circle>
         `;
+
       })
       .join("");
   }
 
 
-  const lapLabels = driverA.laps
-    .map(function (_, index) {
-      return `
-        <text
-          class="chart-lap-label"
-          x="${getX(index, driverA.laps.length)}"
-          y="${height - 15}"
-          text-anchor="middle"
-        >
-          ${index + 1}
-        </text>
-      `;
-    })
-    .join("");
+  const lapLabels =
+    driverA.laps
+      .map(function (_, index) {
+
+        return `
+          <text
+            class="chart-lap-label"
+            x="${getX(
+              index,
+              driverA.laps.length
+            )}"
+            y="${height - 15}"
+            text-anchor="middle"
+          >
+            ${index + 1}
+          </text>
+        `;
+
+      })
+      .join("");
 
 
   return `
     <div class="lap-chart-section">
 
       <div class="lap-chart-heading">
+
         <div>
+
           <p class="analysis-label">
             Lap-by-lap pace
           </p>
@@ -352,7 +765,9 @@ function buildLapChart(driverA, driverB) {
           <h3>
             Pace progression
           </h3>
+
         </div>
+
 
         <div class="chart-legend">
 
@@ -367,6 +782,7 @@ function buildLapChart(driverA, driverB) {
           </span>
 
         </div>
+
       </div>
 
 
@@ -435,40 +851,59 @@ function buildLapChart(driverA, driverB) {
 
       </div>
 
+
       <p class="chart-note">
-        Lower points represent faster lap times.
-        Hover over a point to see the lap time.
+        Lower lap times appear higher on the chart.
+        Hover over a point to view its simulated lap time.
       </p>
 
     </div>
   `;
 }
 
+
 // ----------------------------------------------------------
 // LAP-BY-LAP DELTA
-//
-// Compares the corresponding lap time from each driver
-// and calculates who was faster on every lap.
 // ----------------------------------------------------------
 
 function buildLapDelta(driverA, driverB) {
 
-  const numberOfLaps = Math.min(
-    driverA.laps.length,
-    driverB.laps.length
-  );
+  const numberOfLaps =
+    Math.min(
+      driverA.laps.length,
+      driverB.laps.length
+    );
+
 
   let rows = "";
 
+  let driverALapWins = 0;
+  let driverBLapWins = 0;
+  let tiedLaps = 0;
 
-  for (let index = 0; index < numberOfLaps; index++) {
+  let biggestGap = 0;
+  let biggestGapDriver = "";
+  let biggestGapLap = 0;
 
-    const driverALap = driverA.laps[index];
-    const driverBLap = driverB.laps[index];
 
-    const difference = Math.abs(
-      driverALap - driverBLap
-    );
+  for (
+    let index = 0;
+    index < numberOfLaps;
+    index++
+  ) {
+
+    const driverALap =
+      driverA.laps[index];
+
+    const driverBLap =
+      driverB.laps[index];
+
+
+    const difference =
+      Math.abs(
+        driverALap -
+        driverBLap
+      );
 
 
     let fasterDriver = "";
@@ -477,18 +912,46 @@ function buildLapDelta(driverA, driverB) {
 
     if (driverALap < driverBLap) {
 
-      fasterDriver = driverA.name;
-      winnerClass = "driver-a-winner";
+      fasterDriver =
+        driverA.name;
 
-    } else if (driverBLap < driverALap) {
+      winnerClass =
+        "driver-a-winner";
 
-      fasterDriver = driverB.name;
-      winnerClass = "driver-b-winner";
+      driverALapWins++;
+
+    } else if (
+      driverBLap <
+      driverALap
+    ) {
+
+      fasterDriver =
+        driverB.name;
+
+      winnerClass =
+        "driver-b-winner";
+
+      driverBLapWins++;
 
     } else {
 
-      fasterDriver = "Equal";
-      winnerClass = "";
+      fasterDriver =
+        "Equal";
+
+      tiedLaps++;
+    }
+
+
+    if (difference > biggestGap) {
+
+      biggestGap =
+        difference;
+
+      biggestGapDriver =
+        fasterDriver;
+
+      biggestGapLap =
+        index + 1;
     }
 
 
@@ -536,19 +999,111 @@ function buildLapDelta(driverA, driverB) {
       </div>
 
 
+      <div class="lap-summary">
+
+        <div>
+
+          <span>
+            ${driverA.name}
+          </span>
+
+          <strong>
+            ${driverALapWins}
+          </strong>
+
+          <small>
+            Laps faster
+          </small>
+
+        </div>
+
+
+        <div>
+
+          <span>
+            ${driverB.name}
+          </span>
+
+          <strong>
+            ${driverBLapWins}
+          </strong>
+
+          <small>
+            Laps faster
+          </small>
+
+        </div>
+
+
+        <div>
+
+          <span>
+            Tied laps
+          </span>
+
+          <strong>
+            ${tiedLaps}
+          </strong>
+
+          <small>
+            Equal pace
+          </small>
+
+        </div>
+
+      </div>
+
+
+      <div class="biggest-advantage">
+
+        <span>
+          Biggest lap advantage
+        </span>
+
+        <strong>
+          ${biggestGapDriver}
+        </strong>
+
+        <span>
+          Lap ${biggestGapLap}
+          · ${biggestGap.toFixed(3)}s
+        </span>
+
+      </div>
+
+
       <div class="lap-table-wrapper">
 
         <table class="lap-table">
 
           <thead>
+
             <tr>
-              <th>Lap</th>
-              <th>${driverA.name}</th>
-              <th>${driverB.name}</th>
-              <th>Faster driver</th>
-              <th>Gap</th>
+
+              <th>
+                Lap
+              </th>
+
+              <th>
+                ${driverA.name}
+              </th>
+
+              <th>
+                ${driverB.name}
+              </th>
+
+              <th>
+                Faster driver
+              </th>
+
+              <th>
+                Gap
+              </th>
+
             </tr>
+
           </thead>
+
 
           <tbody>
             ${rows}
@@ -562,375 +1117,523 @@ function buildLapDelta(driverA, driverB) {
   `;
 }
 
+
 // ----------------------------------------------------------
 // COMPARE DRIVERS
 // ----------------------------------------------------------
 
-compareButton.addEventListener("click", function () {
+compareButton.addEventListener(
+  "click",
+  function () {
 
-  // Get the selected driver codes.
+    const trackKey =
+  trackSelect.value;
 
-  const driverAKey = driverASelect.value;
+const sessionKey =
+  sessionSelect.value;
 
-  const driverBKey = driverBSelect.value;
+const driverAKey =
+  driverASelect.value;
+
+const driverBKey =
+  driverBSelect.value;
 
 
-  // --------------------------------------------------------
-  // VALIDATION
-  // --------------------------------------------------------
+    // ------------------------------------------------------
+    // VALIDATION
+    // ------------------------------------------------------
 
-  if (driverAKey === driverBKey) {
+    if (driverAKey === driverBKey) {
+
+      results.innerHTML = `
+        <p>
+          Please choose two different drivers to compare.
+        </p>
+      `;
+
+      return;
+    }
+
+
+const selectedTrack =
+  tracks[trackKey];
+
+const selectedSession =
+  sessions[sessionKey];
+
+const driverAData =
+  drivers[driverAKey];
+
+const driverBData =
+  drivers[driverBKey];
+
+
+    if (
+  !selectedTrack ||
+  !selectedSession ||
+  !driverAData ||
+  !driverBData
+) {
+
+      results.innerHTML = `
+        <p>
+          Comparison data could not be loaded.
+        </p>
+      `;
+
+      return;
+    }
+
+
+    // Create temporary comparison objects so the global
+    // driver data itself is not modified.
+
+    const driverA = {
+      ...driverAData,
+
+      laps: generateLaps(
+  driverAData,
+  driverAKey,
+  selectedTrack,
+  trackKey,
+  selectedSession,
+  sessionKey
+)
+    };
+
+
+    const driverB = {
+      ...driverBData,
+
+      laps: generateLaps(
+  driverBData,
+  driverBKey,
+  selectedTrack,
+  trackKey,
+  selectedSession,
+  sessionKey
+)
+    };
+
+
+    // ------------------------------------------------------
+    // CALCULATIONS
+    // ------------------------------------------------------
+
+    const driverAFastest =
+      getFastestLap(
+        driverA.laps
+      );
+
+    const driverBFastest =
+      getFastestLap(
+        driverB.laps
+      );
+
+
+    const driverAAverage =
+      getAverageLap(
+        driverA.laps
+      );
+
+    const driverBAverage =
+      getAverageLap(
+        driverB.laps
+      );
+
+
+    const driverAConsistency =
+      getConsistency(
+        driverA.laps
+      );
+
+    const driverBConsistency =
+      getConsistency(
+        driverB.laps
+      );
+
+
+    // ------------------------------------------------------
+    // COMPARISON GAPS
+    // ------------------------------------------------------
+
+    const fastestLapGap =
+      Math.abs(
+        driverAFastest -
+        driverBFastest
+      );
+
+    const averagePaceGap =
+      Math.abs(
+        driverAAverage -
+        driverBAverage
+      );
+
+    const consistencyGap =
+      Math.abs(
+        driverAConsistency -
+        driverBConsistency
+      );
+
+
+    let fastestLapWinner = "";
+    let averagePaceWinner = "";
+    let consistencyWinner = "";
+
+    let driverAScore = 0;
+    let driverBScore = 0;
+
+
+    // Fastest lap
+
+    if (
+      driverAFastest <
+      driverBFastest
+    ) {
+
+      fastestLapWinner =
+        driverA.name;
+
+      driverAScore++;
+
+    } else if (
+      driverBFastest <
+      driverAFastest
+    ) {
+
+      fastestLapWinner =
+        driverB.name;
+
+      driverBScore++;
+
+    } else {
+
+      fastestLapWinner =
+        "Tie";
+    }
+
+
+    // Average pace
+
+    if (
+      driverAAverage <
+      driverBAverage
+    ) {
+
+      averagePaceWinner =
+        driverA.name;
+
+      driverAScore++;
+
+    } else if (
+      driverBAverage <
+      driverAAverage
+    ) {
+
+      averagePaceWinner =
+        driverB.name;
+
+      driverBScore++;
+
+    } else {
+
+      averagePaceWinner =
+        "Tie";
+    }
+
+
+    // Consistency
+
+    if (
+      driverAConsistency <
+      driverBConsistency
+    ) {
+
+      consistencyWinner =
+        driverA.name;
+
+      driverAScore++;
+
+    } else if (
+      driverBConsistency <
+      driverAConsistency
+    ) {
+
+      consistencyWinner =
+        driverB.name;
+
+      driverBScore++;
+
+    } else {
+
+      consistencyWinner =
+        "Tie";
+    }
+
+
+    // ------------------------------------------------------
+    // OVERALL RESULT
+    // ------------------------------------------------------
+
+    let overallResult = "";
+
+
+    if (
+      driverAScore >
+      driverBScore
+    ) {
+
+      overallResult =
+        `${driverA.name} leads the simulated comparison ${driverAScore} to ${driverBScore}.`;
+
+    } else if (
+      driverBScore >
+      driverAScore
+    ) {
+
+      overallResult =
+        `${driverB.name} leads the simulated comparison ${driverBScore} to ${driverAScore}.`;
+
+    } else {
+
+      overallResult =
+        "The drivers are level across the simulated comparison metrics.";
+    }
+
+
+    // ------------------------------------------------------
+    // DISPLAY
+    // ------------------------------------------------------
 
     results.innerHTML = `
-      <p>
-        Please choose two different drivers to compare.
-      </p>
-    `;
-
-    return;
-  }
-
-
-  // Find the selected drivers in our data.
-
-  const driverA = drivers[driverAKey];
-
-  const driverB = drivers[driverBKey];
-
-
-  // Safety check in case a driver does not exist.
-
-  if (!driverA || !driverB) {
-
-    results.innerHTML = `
-      <p>
-        Driver data could not be found.
-      </p>
-    `;
-
-    return;
-  }
-
-
-  // Safety check in case lap data is missing.
-
-  if (!driverA.laps || !driverB.laps) {
-
-    results.innerHTML = `
-      <p>
-        Timing data is unavailable for this comparison.
-      </p>
-    `;
-
-    return;
-  }
-
-
-  // --------------------------------------------------------
-  // DRIVER A CALCULATIONS
-  // --------------------------------------------------------
-
-  const driverAFastest =
-    getFastestLap(driverA.laps);
-
-  const driverAAverage =
-    getAverageLap(driverA.laps);
-
-  const driverAConsistency =
-    getConsistency(driverA.laps);
-
-
-  // --------------------------------------------------------
-  // DRIVER B CALCULATIONS
-  // --------------------------------------------------------
-
-  const driverBFastest =
-    getFastestLap(driverB.laps);
-
-  const driverBAverage =
-    getAverageLap(driverB.laps);
-
-  const driverBConsistency =
-    getConsistency(driverB.laps);
-
-
-  // --------------------------------------------------------
-  // DISPLAY RESULTS
-  // --------------------------------------------------------
-
-  results.innerHTML = `
-
-    <p>
-      <strong>${driverA.name}</strong>
-      (${driverA.team})
-      <br>
-      Fastest lap:
-      ${formatLapTime(driverAFastest)}
-      <br>
-      Average pace:
-      ${formatLapTime(driverAAverage)}
-      <br>
-      Consistency:
-      ±${driverAConsistency.toFixed(3)}s
-    </p>
-
-
-    <br>
-
-
-    <p>
-      <strong>${driverB.name}</strong>
-      (${driverB.team})
-      <br>
-      Fastest lap:
-      ${formatLapTime(driverBFastest)}
-      <br>
-      Average pace:
-      ${formatLapTime(driverBAverage)}
-      <br>
-      Consistency:
-      ±${driverBConsistency.toFixed(3)}s
-    </p>
-
-
-    <br>
-
-
-    <p>
-      <small>
-        Synthetic development dataset used to test the
-        comparison logic. These are not official Formula 1
-        timing results.
-      </small>
-    </p>
-
-  `;
-  // --------------------------------------------------------
-  // COMPARISON ANALYSIS
-  // --------------------------------------------------------
-
-  const fastestLapGap =
-    Math.abs(driverAFastest - driverBFastest);
-
-  const averagePaceGap =
-    Math.abs(driverAAverage - driverBAverage);
-
-  const consistencyGap =
-    Math.abs(driverAConsistency - driverBConsistency);
-
-
-  let fastestLapWinner = "";
-  let averagePaceWinner = "";
-  let consistencyWinner = "";
-
-  let driverAScore = 0;
-  let driverBScore = 0;
-
-
-  // Fastest lap comparison
-
-  if (driverAFastest < driverBFastest) {
-    fastestLapWinner = driverA.name;
-    driverAScore++;
-  } else if (driverBFastest < driverAFastest) {
-    fastestLapWinner = driverB.name;
-    driverBScore++;
-  } else {
-    fastestLapWinner = "Tie";
-  }
-
-
-  // Average pace comparison
-
-  if (driverAAverage < driverBAverage) {
-    averagePaceWinner = driverA.name;
-    driverAScore++;
-  } else if (driverBAverage < driverAAverage) {
-    averagePaceWinner = driverB.name;
-    driverBScore++;
-  } else {
-    averagePaceWinner = "Tie";
-  }
-
-
-  // Consistency comparison
-  // Lower standard deviation = more consistent
-
-  if (driverAConsistency < driverBConsistency) {
-    consistencyWinner = driverA.name;
-    driverAScore++;
-  } else if (driverBConsistency < driverAConsistency) {
-    consistencyWinner = driverB.name;
-    driverBScore++;
-  } else {
-    consistencyWinner = "Tie";
-  }
-
-
-  // --------------------------------------------------------
-  // OVERALL RESULT
-  // --------------------------------------------------------
-
-  let overallResult = "";
-
-  if (driverAScore > driverBScore) {
-    overallResult =
-      `${driverA.name} leads the comparison ${driverAScore} to ${driverBScore}.`;
-  } else if (driverBScore > driverAScore) {
-    overallResult =
-      `${driverB.name} leads the comparison ${driverBScore} to ${driverAScore}.`;
-  } else {
-    overallResult =
-      "The drivers are level across the comparison metrics.";
-  }
-
-
-  // --------------------------------------------------------
-  // DISPLAY RESULTS
-  // --------------------------------------------------------
-
-  results.innerHTML = `
-
-    <div class="driver-results">
-
-      <div class="driver-result">
-        <p class="driver-result-label">
-          Driver A
-        </p>
-
-        <h3>
-          ${driverA.name}
-        </h3>
-
-        <p class="driver-team">
-          ${driverA.team}
-        </p>
-
-        <dl class="driver-stats">
-
-          <div>
-            <dt>Fastest lap</dt>
-            <dd>${formatLapTime(driverAFastest)}</dd>
-          </div>
-
-          <div>
-            <dt>Average pace</dt>
-            <dd>${formatLapTime(driverAAverage)}</dd>
-          </div>
-
-          <div>
-            <dt>Consistency</dt>
-            <dd>±${driverAConsistency.toFixed(3)}s</dd>
-          </div>
-
-        </dl>
-      </div>
-
-
-      <div class="driver-result">
-        <p class="driver-result-label">
-          Driver B
-        </p>
-
-        <h3>
-          ${driverB.name}
-        </h3>
-
-        <p class="driver-team">
-          ${driverB.team}
-        </p>
-
-        <dl class="driver-stats">
-
-          <div>
-            <dt>Fastest lap</dt>
-            <dd>${formatLapTime(driverBFastest)}</dd>
-          </div>
-
-          <div>
-            <dt>Average pace</dt>
-            <dd>${formatLapTime(driverBAverage)}</dd>
-          </div>
-
-          <div>
-            <dt>Consistency</dt>
-            <dd>±${driverBConsistency.toFixed(3)}s</dd>
-          </div>
-
-        </dl>
-      </div>
-
-    </div>
-
-
-    <div class="comparison-analysis">
 
       <p class="analysis-label">
-        Analysis
-      </p>
+  ${selectedTrack.name} · ${selectedTrack.country}
+</p>
 
-      <div class="analysis-row">
-        <span>Fastest lap</span>
+<p class="session-result-label">
+  ${selectedSession.name}
+  · ${selectedSession.lapCount} simulated laps
+</p>
 
-        <strong>
-          ${fastestLapWinner}
-        </strong>
 
-        <span>
-          ${fastestLapGap.toFixed(3)}s gap
-        </span>
+      <div class="driver-results">
+
+
+        <div class="driver-result">
+
+          <p class="driver-result-label">
+            Driver A
+          </p>
+
+          <h3>
+            ${driverA.name}
+          </h3>
+
+          <p class="driver-team">
+            ${driverA.team}
+          </p>
+
+
+          <dl class="driver-stats">
+
+            <div>
+
+              <dt>
+                Fastest lap
+              </dt>
+
+              <dd>
+                ${formatLapTime(driverAFastest)}
+              </dd>
+
+            </div>
+
+
+            <div>
+
+              <dt>
+                Average pace
+              </dt>
+
+              <dd>
+                ${formatLapTime(driverAAverage)}
+              </dd>
+
+            </div>
+
+
+            <div>
+
+              <dt>
+                Consistency
+              </dt>
+
+              <dd>
+                ±${driverAConsistency.toFixed(3)}s
+              </dd>
+
+            </div>
+
+          </dl>
+
+        </div>
+
+
+        <div class="driver-result">
+
+          <p class="driver-result-label">
+            Driver B
+          </p>
+
+          <h3>
+            ${driverB.name}
+          </h3>
+
+          <p class="driver-team">
+            ${driverB.team}
+          </p>
+
+
+          <dl class="driver-stats">
+
+            <div>
+
+              <dt>
+                Fastest lap
+              </dt>
+
+              <dd>
+                ${formatLapTime(driverBFastest)}
+              </dd>
+
+            </div>
+
+
+            <div>
+
+              <dt>
+                Average pace
+              </dt>
+
+              <dd>
+                ${formatLapTime(driverBAverage)}
+              </dd>
+
+            </div>
+
+
+            <div>
+
+              <dt>
+                Consistency
+              </dt>
+
+              <dd>
+                ±${driverBConsistency.toFixed(3)}s
+              </dd>
+
+            </div>
+
+          </dl>
+
+        </div>
+
       </div>
 
 
-      <div class="analysis-row">
-        <span>Average pace</span>
+      <div class="comparison-analysis">
 
-        <strong>
-          ${averagePaceWinner}
-        </strong>
-
-        <span>
-          ${averagePaceGap.toFixed(3)}s gap
-        </span>
-      </div>
-
-
-      <div class="analysis-row">
-        <span>Consistency</span>
-
-        <strong>
-          ${consistencyWinner}
-        </strong>
-
-        <span>
-          ${consistencyGap.toFixed(3)}s difference
-        </span>
-      </div>
-
-
-      <div class="overall-result">
-
-        <p>
-          Overall comparison
+        <p class="analysis-label">
+          Analysis
         </p>
 
-        <h3>
-          ${overallResult}
-        </h3>
+
+        <div class="analysis-row">
+
+          <span>
+            Fastest lap
+          </span>
+
+          <strong>
+            ${fastestLapWinner}
+          </strong>
+
+          <span>
+            ${fastestLapGap.toFixed(3)}s gap
+          </span>
+
+        </div>
+
+
+        <div class="analysis-row">
+
+          <span>
+            Average pace
+          </span>
+
+          <strong>
+            ${averagePaceWinner}
+          </strong>
+
+          <span>
+            ${averagePaceGap.toFixed(3)}s gap
+          </span>
+
+        </div>
+
+
+        <div class="analysis-row">
+
+          <span>
+            Consistency
+          </span>
+
+          <strong>
+            ${consistencyWinner}
+          </strong>
+
+          <span>
+            ${consistencyGap.toFixed(3)}s difference
+          </span>
+
+        </div>
+
+
+        <div class="overall-result">
+
+          <p>
+            Overall comparison
+          </p>
+
+          <h3>
+            ${overallResult}
+          </h3>
+
+        </div>
 
       </div>
 
-    </div>
 
-${buildLapChart(driverA, driverB)}
+      ${buildLapChart(
+        driverA,
+        driverB
+      )}
 
-${buildLapDelta(driverA, driverB)}
 
-    <p class="data-note">
-      Synthetic development dataset used to test the comparison logic.
-      These are not official Formula 1 timing results.
-    </p>
+      ${buildLapDelta(
+        driverA,
+        driverB
+      )}
 
-  `;
 
-});
+      <p class="data-note">
+        Synthetic circuit-based simulation used to demonstrate
+        JavaScript calculation, comparison and visualisation logic.
+        Lap times and driver pace parameters are illustrative and
+        are not official Formula 1 timing data or performance predictions.
+      </p>
+
+    `;
+  }
+);

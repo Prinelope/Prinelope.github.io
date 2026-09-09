@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
 
@@ -13,14 +14,25 @@
     content="An interactive Formula 1 lap comparison tool built by Prinel Pillay using HTML, CSS and JavaScript."
   >
 
-  <title>F1 Lap Comparison Tool | Prinel Pillay</title>
+  <title>
+    F1 Lap Comparison Tool | Prinel Pillay
+  </title>
 
-  <link rel="stylesheet" href="css/styles.css">
+  <link
+    rel="stylesheet"
+    href="css/styles.css"
+  >
 </head>
+
 
 <body>
 
+  <!-- ======================================================
+       PROJECT HEADER
+  ======================================================= -->
+
   <header class="site-header">
+
     <div class="container">
 
       <p class="eyebrow">
@@ -32,115 +44,525 @@
       </h1>
 
       <p class="intro">
-        Compare two drivers across lap pace, fastest lap and consistency.
+        Compare two drivers across simulated lap pace,
+        fastest lap and consistency at different circuits.
       </p>
 
     </div>
+
   </header>
+
+
+  <!-- ======================================================
+       DEVELOPMENT STATUS
+  ======================================================= -->
+
+  <section
+    class="project-status-bar"
+    aria-label="Project development status"
+  >
+
+    <div class="container status-bar-content">
+
+      <div>
+
+        <span
+          class="status-indicator"
+          aria-hidden="true"
+        ></span>
+
+        <strong>
+          In development
+        </strong>
+
+      </div>
+
+      <p>
+        JavaScript comparison tool using simulated circuit-based
+        lap data to test calculation, analysis and visualisation logic.
+      </p>
+
+    </div>
+
+  </section>
+
 
   <main>
 
+    <!-- ====================================================
+         COMPARISON CONTROLS
+    ===================================================== -->
+
     <section class="comparison-controls">
+
       <div class="container">
+
+
+        <!-- ================================================
+             TRACK SELECTOR
+        ================================================= -->
+
+        <div class="track-control">
+
+          <label for="track">
+            Track
+          </label>
+
+          <select id="track">
+
+            <option value="monza">
+              Monza (Italy)
+            </option>
+
+            <option value="silverstone">
+              Silverstone (United Kingdom)
+            </option>
+
+            <option value="spa">
+              Spa-Francorchamps (Belgium)
+            </option>
+
+            <option value="suzuka">
+              Suzuka (Japan)
+            </option>
+
+            <option value="monaco">
+              Monaco (Monaco)
+            </option>
+
+          </select>
+
+        </div>
+
+        <div class="session-control">
+
+  <label for="session">
+    Session
+  </label>
+
+  <select id="session">
+
+    <option value="qualifying">
+      Qualifying simulation
+    </option>
+
+    <option value="race">
+      Race pace simulation
+    </option>
+
+    <option value="practice">
+      Practice simulation
+    </option>
+
+  </select>
+
+</div>
+
+
+        <!-- ================================================
+             SELECTED CIRCUIT DISPLAY
+        ================================================= -->
+
+        <div class="track-display">
+
+          <div class="track-map-panel">
+
+
+            <!-- CIRCUIT INFORMATION -->
+
+            <div class="track-map-header">
+
+              <div>
+
+                <p class="track-map-label">
+                  Selected circuit
+                </p>
+
+                <h2 id="track-name">
+                  Monza
+                </h2>
+
+                <p id="track-country">
+                  Italy
+                </p>
+                <div class="track-characteristics">
+
+  <div>
+    <span>Type</span>
+    <strong id="track-type">
+      Permanent circuit
+    </strong>
+  </div>
+
+  <div>
+    <span>Speed profile</span>
+    <strong id="track-speed">
+      Very high
+    </strong>
+  </div>
+
+  <div>
+    <span>Technical demand</span>
+    <strong id="track-technical">
+      Medium
+    </strong>
+  </div>
+
+  <div>
+    <span>Overtaking</span>
+    <strong id="track-overtaking">
+      Moderate
+    </strong>
+  </div>
+
+</div>
+
+              </div>
+
+
+              <span class="track-map-status">
+                Circuit preview
+              </span>
+
+            </div>
+
+
+            <!-- CIRCUIT IMAGE -->
+
+            <div class="track-map-wrapper">
+
+              <img
+                id="track-image"
+                src="assets/tracks/monza.jpg"
+                alt="Monza circuit layout"
+              >
+
+            </div>
+
+          </div>
+
+        </div>
+
+        <section class="simulation-info">
+
+  <div class="simulation-info-header">
+
+    <p class="section-label">
+      Simulation model
+    </p>
+
+    <h2>
+      How the lap comparison works
+    </h2>
+
+  </div>
+
+
+  <div class="simulation-info-grid">
+
+    <div>
+      <span>01</span>
+
+      <h3>
+        Circuit baseline
+      </h3>
+
+      <p>
+        Each circuit has a reference lap time that sets the
+        overall timing range for the simulation.
+      </p>
+    </div>
+
+
+    <div>
+      <span>02</span>
+
+      <h3>
+        Driver pace offset
+      </h3>
+
+      <p>
+        Each driver has a small simulated pace offset used only
+        to create differences within the development model.
+      </p>
+    </div>
+
+
+    <div>
+      <span>03</span>
+
+      <h3>
+        Circuit variation
+      </h3>
+
+      <p>
+        Technical demand and circuit type influence the amount
+        of lap-to-lap variation generated by the model.
+      </p>
+    </div>
+
+
+    <div>
+      <span>04</span>
+
+      <h3>
+        Analysis
+      </h3>
+
+      <p>
+        JavaScript calculates fastest lap, average pace,
+        consistency, lap deltas and the overall comparison.
+      </p>
+    </div>
+
+  </div>
+
+
+  <p class="simulation-disclaimer">
+    This is a development simulation. The values are illustrative
+    and are not official Formula 1 timing data or performance predictions.
+  </p>
+
+</section>
+
+
+        <!-- ================================================
+             DRIVER SELECTION
+        ================================================= -->
 
         <div class="control-group">
 
+
           <!-- DRIVER A -->
+
           <div>
+
             <label for="driver-a">
               Driver A
             </label>
 
             <select id="driver-a">
-              <option value="NOR">Lando Norris (McLaren)</option>
-              <option value="PIA">Oscar Piastri (McLaren)</option>
 
-              <option value="RUS">George Russell (Mercedes)</option>
-              <option value="ANT">Kimi Antonelli (Mercedes)</option>
+              <option value="NOR">
+                Lando Norris (McLaren)
+              </option>
 
-              <option value="LEC">Charles Leclerc (Ferrari)</option>
-              <option value="HAM">Lewis Hamilton (Ferrari)</option>
+              <option value="PIA">
+                Oscar Piastri (McLaren)
+              </option>
 
-              <option value="VER">Max Verstappen (Red Bull Racing)</option>
-              <option value="HAD">Isack Hadjar (Red Bull Racing)</option>
+              <option value="RUS">
+                George Russell (Mercedes)
+              </option>
 
-              <option value="LAW">Liam Lawson (Racing Bulls)</option>
-              <option value="LIN">Arvid Lindblad (Racing Bulls)</option>
+              <option value="ANT">
+                Kimi Antonelli (Mercedes)
+              </option>
 
-              <option value="GAS">Pierre Gasly (Alpine)</option>
-              <option value="COL">Franco Colapinto (Alpine)</option>
+              <option value="LEC">
+                Charles Leclerc (Ferrari)
+              </option>
 
-              <option value="OCO">Esteban Ocon (Haas)</option>
-              <option value="BEA">Oliver Bearman (Haas)</option>
+              <option value="HAM">
+                Lewis Hamilton (Ferrari)
+              </option>
 
-              <option value="HUL">Nico Hulkenberg (Audi)</option>
-              <option value="BOR">Gabriel Bortoleto (Audi)</option>
+              <option value="VER">
+                Max Verstappen (Red Bull Racing)
+              </option>
 
-              <option value="SAI">Carlos Sainz (Williams)</option>
-              <option value="ALB">Alexander Albon (Williams)</option>
+              <option value="HAD">
+                Isack Hadjar (Red Bull Racing)
+              </option>
 
-              <option value="ALO">Fernando Alonso (Aston Martin)</option>
-              <option value="STR">Lance Stroll (Aston Martin)</option>
+              <option value="LAW">
+                Liam Lawson (Racing Bulls)
+              </option>
 
-              <option value="PER">Sergio Perez (Cadillac)</option>
-              <option value="BOT">Valtteri Bottas (Cadillac)</option>
+              <option value="LIN">
+                Arvid Lindblad (Racing Bulls)
+              </option>
+
+              <option value="GAS">
+                Pierre Gasly (Alpine)
+              </option>
+
+              <option value="COL">
+                Franco Colapinto (Alpine)
+              </option>
+
+              <option value="OCO">
+                Esteban Ocon (Haas)
+              </option>
+
+              <option value="BEA">
+                Oliver Bearman (Haas)
+              </option>
+
+              <option value="HUL">
+                Nico Hulkenberg (Audi)
+              </option>
+
+              <option value="BOR">
+                Gabriel Bortoleto (Audi)
+              </option>
+
+              <option value="SAI">
+                Carlos Sainz (Williams)
+              </option>
+
+              <option value="ALB">
+                Alexander Albon (Williams)
+              </option>
+
+              <option value="ALO">
+                Fernando Alonso (Aston Martin)
+              </option>
+
+              <option value="STR">
+                Lance Stroll (Aston Martin)
+              </option>
+
+              <option value="PER">
+                Sergio Perez (Cadillac)
+              </option>
+
+              <option value="BOT">
+                Valtteri Bottas (Cadillac)
+              </option>
+
             </select>
+
           </div>
 
 
           <!-- DRIVER B -->
+
           <div>
+
             <label for="driver-b">
               Driver B
             </label>
 
             <select id="driver-b">
-              <option value="PIA">Oscar Piastri (McLaren)</option>
-              <option value="NOR">Lando Norris (McLaren)</option>
 
-              <option value="RUS">George Russell (Mercedes)</option>
-              <option value="ANT">Kimi Antonelli (Mercedes)</option>
+              <option value="PIA">
+                Oscar Piastri (McLaren)
+              </option>
 
-              <option value="LEC">Charles Leclerc (Ferrari)</option>
-              <option value="HAM">Lewis Hamilton (Ferrari)</option>
+              <option value="NOR">
+                Lando Norris (McLaren)
+              </option>
 
-              <option value="VER">Max Verstappen (Red Bull Racing)</option>
-              <option value="HAD">Isack Hadjar (Red Bull Racing)</option>
+              <option value="RUS">
+                George Russell (Mercedes)
+              </option>
 
-              <option value="LAW">Liam Lawson (Racing Bulls)</option>
-              <option value="LIN">Arvid Lindblad (Racing Bulls)</option>
+              <option value="ANT">
+                Kimi Antonelli (Mercedes)
+              </option>
 
-              <option value="GAS">Pierre Gasly (Alpine)</option>
-              <option value="COL">Franco Colapinto (Alpine)</option>
+              <option value="LEC">
+                Charles Leclerc (Ferrari)
+              </option>
 
-              <option value="OCO">Esteban Ocon (Haas)</option>
-              <option value="BEA">Oliver Bearman (Haas)</option>
+              <option value="HAM">
+                Lewis Hamilton (Ferrari)
+              </option>
 
-              <option value="HUL">Nico Hulkenberg (Audi)</option>
-              <option value="BOR">Gabriel Bortoleto (Audi)</option>
+              <option value="VER">
+                Max Verstappen (Red Bull Racing)
+              </option>
 
-              <option value="SAI">Carlos Sainz (Williams)</option>
-              <option value="ALB">Alexander Albon (Williams)</option>
+              <option value="HAD">
+                Isack Hadjar (Red Bull Racing)
+              </option>
 
-              <option value="ALO">Fernando Alonso (Aston Martin)</option>
-              <option value="STR">Lance Stroll (Aston Martin)</option>
+              <option value="LAW">
+                Liam Lawson (Racing Bulls)
+              </option>
 
-              <option value="PER">Sergio Perez (Cadillac)</option>
-              <option value="BOT">Valtteri Bottas (Cadillac)</option>
+              <option value="LIN">
+                Arvid Lindblad (Racing Bulls)
+              </option>
+
+              <option value="GAS">
+                Pierre Gasly (Alpine)
+              </option>
+
+              <option value="COL">
+                Franco Colapinto (Alpine)
+              </option>
+
+              <option value="OCO">
+                Esteban Ocon (Haas)
+              </option>
+
+              <option value="BEA">
+                Oliver Bearman (Haas)
+              </option>
+
+              <option value="HUL">
+                Nico Hulkenberg (Audi)
+              </option>
+
+              <option value="BOR">
+                Gabriel Bortoleto (Audi)
+              </option>
+
+              <option value="SAI">
+                Carlos Sainz (Williams)
+              </option>
+
+              <option value="ALB">
+                Alexander Albon (Williams)
+              </option>
+
+              <option value="ALO">
+                Fernando Alonso (Aston Martin)
+              </option>
+
+              <option value="STR">
+                Lance Stroll (Aston Martin)
+              </option>
+
+              <option value="PER">
+                Sergio Perez (Cadillac)
+              </option>
+
+              <option value="BOT">
+                Valtteri Bottas (Cadillac)
+              </option>
+
             </select>
+
           </div>
 
         </div>
 
-        <button id="compare-button" type="button">
+
+        <!-- ================================================
+             COMPARE BUTTON
+        ================================================= -->
+
+        <button
+          id="compare-button"
+          type="button"
+        >
           Compare drivers
         </button>
 
       </div>
+
     </section>
 
 
+    <!-- ====================================================
+         COMPARISON RESULTS
+    ===================================================== -->
+
     <section class="comparison-results">
+
       <div class="container">
 
         <p class="section-label">
@@ -151,20 +573,29 @@
           Driver performance
         </h2>
 
+
         <div id="results">
 
           <p>
-            Choose two drivers and select “Compare drivers” to see the analysis.
+            Choose a circuit and two drivers, then select
+            “Compare drivers” to see the analysis.
           </p>
 
         </div>
 
       </div>
+
     </section>
 
   </main>
 
+
+  <!-- ======================================================
+       JAVASCRIPT
+  ======================================================= -->
+
   <script src="js/app.js"></script>
 
 </body>
+
 </html>
