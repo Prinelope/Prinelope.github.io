@@ -25,8 +25,6 @@ monza: {
   speedProfile: "Very high",
   technicalDemand: "Medium",
   overtaking: "Moderate",
-
-  image: "assets/tracks/monza.jpg"
 },
 
 silverstone: {
@@ -40,8 +38,6 @@ silverstone: {
   speedProfile: "High",
   technicalDemand: "High",
   overtaking: "Moderate",
-
-  image: "assets/tracks/silverstone.jpg"
 },
 
 spa: {
@@ -55,8 +51,6 @@ spa: {
   speedProfile: "Very high",
   technicalDemand: "High",
   overtaking: "Moderate",
-
-  image: "assets/tracks/spa.jpg"
 },
 
 suzuka: {
@@ -70,8 +64,6 @@ suzuka: {
   speedProfile: "High",
   technicalDemand: "Very high",
   overtaking: "Difficult",
-
-  image: "assets/tracks/suzuka.jpg"
 },
 
 monaco: {
@@ -85,8 +77,6 @@ monaco: {
   speedProfile: "Low",
   technicalDemand: "Very high",
   overtaking: "Very difficult",
-
-  image: "assets/tracks/monaco.jpg"
 }
 
 };
@@ -309,9 +299,6 @@ const trackName =
 const trackCountry =
   document.getElementById("track-country");
 
-const trackImage =
-  document.getElementById("track-image");
-
   const trackType =
   document.getElementById("track-type");
 
@@ -351,12 +338,6 @@ trackTechnical.textContent =
 
 trackOvertaking.textContent =
   selectedTrack.overtaking;
-
-  trackImage.src =
-    selectedTrack.image;
-
-  trackImage.alt =
-    `${selectedTrack.name} circuit layout`;
 }
 
 
