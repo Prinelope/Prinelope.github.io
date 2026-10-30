@@ -6,7 +6,7 @@ Web development, digital systems, automation and software engineering work.
 
 ## About
 
-I’m a Web Developer & Software Engineer with experience across websites, digital systems, CRM, workflow automation and UX.
+I’m a Web Developer & Software Engineer with experience across websites, digital systems, CRM, workflow automation and UX design.
 
 A lot of my work involves looking at processes that are complicated or manual and finding a clearer, more practical way to make them work.
 
