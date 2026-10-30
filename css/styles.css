@@ -4277,3 +4277,306 @@ dd {
     opacity: 1;
   }
 }
+
+/* ==========================================================
+   PORTFOLIO POLISH — PROFESSIONAL WITH PERSONALITY
+   Refined typography, spacing and interactions
+   ========================================================== */
+
+/* 1. COLOURS AND READABILITY */
+
+:root {
+  --ink-soft: #454b55;
+  --ink-faint: #626974;
+}
+
+html {
+  scroll-padding-top: 110px;
+}
+
+body {
+  line-height: 1.7;
+}
+
+::selection {
+  background: var(--blue);
+  color: #ffffff;
+}
+
+/* 2. HERO SECTION */
+
+.hero {
+  min-height: min(78svh, 740px);
+  padding: 84px 0 90px;
+}
+
+.hero-meta {
+  margin-bottom: 28px;
+  font-size: 0.76rem;
+}
+
+.hero h1 {
+  max-width: 880px;
+  font-size: clamp(2.5rem, 4.6vw, 4.2rem);
+  font-weight: 600;
+  line-height: 1.12;
+  letter-spacing: -0.037em;
+}
+
+.hero-intro {
+  max-width: 64ch;
+  margin-top: 28px;
+  line-height: 1.75;
+}
+
+.hero-focus {
+  margin-top: 52px;
+  font-size: 0.74rem;
+}
+
+/* 3. SECTION HEADINGS */
+
+.section-heading h2,
+.about-intro h2,
+.contact-heading h2 {
+  font-size: clamp(2rem, 3.3vw, 3rem);
+  font-weight: 600;
+  line-height: 1.16;
+  letter-spacing: -0.03em;
+}
+
+.section-heading {
+  margin-bottom: 44px;
+}
+
+.about-intro {
+  margin-bottom: 48px;
+}
+
+.section-intro {
+  max-width: 65ch;
+  line-height: 1.75;
+}
+
+/* 4. PROJECT AND EXPERIENCE HEADINGS */
+
+.work-main h3,
+.motorsport-main h3,
+.expertise-content h3,
+.experience-main h3 {
+  font-size: clamp(1.5rem, 2.5vw, 2.15rem);
+  line-height: 1.18;
+  letter-spacing: -0.03em;
+}
+
+.engineering-main h3 {
+  font-size: clamp(1.7rem, 2.8vw, 2.4rem);
+  line-height: 1.16;
+  letter-spacing: -0.03em;
+}
+
+/* 5. CASE STUDY HEADINGS */
+
+.case-hero h1 {
+  font-size: clamp(2.5rem, 5vw, 4.2rem);
+  line-height: 1.1;
+  letter-spacing: -0.04em;
+}
+
+.case-context h2 {
+  font-size: clamp(2rem, 3.2vw, 2.9rem);
+  line-height: 1.15;
+  letter-spacing: -0.03em;
+}
+
+.decision-content h3,
+.scoring-explanation h3,
+.interface-copy h3,
+.reporting-copy h3,
+.takeaway-item h3 {
+  font-size: clamp(1.5rem, 2.6vw, 2.25rem);
+  line-height: 1.18;
+  letter-spacing: -0.03em;
+}
+
+/* 6. MORE COMFORTABLE READING */
+
+.about-story {
+  max-width: 66ch;
+}
+
+.about-story p,
+.work-description,
+.engineering-description,
+.motorsport-description,
+.experience-description,
+.section-intro,
+.contact-content > p {
+  line-height: 1.75;
+}
+
+.about-story p {
+  font-size: 1.04rem;
+}
+
+/* 7. SMALL TEXT THAT IS ACTUALLY READABLE */
+
+.work-meta dt,
+.engineering-meta dt,
+.motorsport-meta dt,
+.experience-meta dt,
+.case-overview dt {
+  font-size: 0.72rem;
+  letter-spacing: 0.04em;
+}
+
+.work-meta dd,
+.engineering-meta dd,
+.motorsport-meta dd,
+.experience-meta dd,
+.case-overview dd {
+  font-size: 0.81rem;
+  line-height: 1.55;
+}
+
+/* 8. BETTER SECTION SPACING */
+
+.selected-work,
+.engineering-projects,
+.motorsport-lab,
+.expertise,
+.about,
+.experience,
+.contact {
+  padding-top: 88px;
+  padding-bottom: 88px;
+}
+
+/* 9. SUBTLE PROJECT HOVER */
+
+.work-item {
+  transition:
+    background-color 180ms ease,
+    box-shadow 180ms ease;
+}
+
+.work-item:hover,
+.work-item:focus-within {
+  padding-left: 0;
+  padding-right: 0;
+  background: var(--surface);
+  box-shadow: inset 3px 0 0 var(--blue);
+}
+
+/* 10. NAVIGATION DETAILS */
+
+.main-nav a {
+  font-size: 0.76rem;
+}
+
+.main-nav a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -7px;
+  height: 2px;
+  background: var(--blue);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 160ms ease;
+}
+
+.main-nav a:hover::after,
+.main-nav a:focus-visible::after {
+  transform: scaleX(1);
+}
+
+/* 11. BUTTON INTERACTIONS */
+
+.button {
+  transition:
+    background-color 160ms ease,
+    color 160ms ease,
+    border-color 160ms ease,
+    transform 160ms ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .button:hover {
+    transform: translateY(-2px);
+  }
+}
+
+/* 12. MOBILE IMPROVEMENTS */
+
+@media (max-width: 760px) {
+  html {
+    scroll-padding-top: 150px;
+  }
+
+  .nav-container {
+    min-height: 0;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding-block: 12px;
+  }
+
+  .logo {
+    width: 100%;
+    align-items: center;
+  }
+
+  .main-nav {
+    display: flex;
+    width: 100%;
+    flex-wrap: wrap;
+    gap: 10px 16px;
+  }
+
+  .main-nav a,
+  .main-nav a:nth-child(2),
+  .main-nav a:nth-child(3) {
+    display: inline-block;
+    font-size: 0.71rem;
+  }
+
+  .hero {
+    min-height: auto;
+    padding: 54px 0 68px;
+  }
+
+  .hero h1 {
+    font-size: clamp(2.15rem, 8vw, 3.05rem);
+  }
+
+  .hero-focus {
+    margin-top: 38px;
+  }
+
+  .selected-work,
+  .engineering-projects,
+  .motorsport-lab,
+  .expertise,
+  .about,
+  .experience,
+  .contact {
+    padding-top: 64px;
+    padding-bottom: 64px;
+  }
+}
+
+/* 13. RESPECT MOTION PREFERENCES */
+
+@media (prefers-reduced-motion: reduce) {
+  .main-nav a::after,
+  .button,
+  .work-item {
+    transition: none;
+  }
+
+  .button:hover {
+    transform: none;
+  }
+}
+
