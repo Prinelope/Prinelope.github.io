@@ -3914,3 +3914,364 @@ dd {
     animation-iteration-count: 1 !important;
   }
 }
+/* ==========================================================
+   ABOUT ME — INTERACTIVE AVATAR
+   ========================================================== */
+
+/* 1. Position the About Me content */
+
+.pp-about .about-grid {
+  display: grid;
+
+  grid-template-columns:
+    minmax(230px, 0.75fr)
+    minmax(0, 1.4fr);
+
+  grid-template-areas:
+    "note story"
+    "avatar story";
+
+  column-gap: clamp(36px, 6vw, 80px);
+  row-gap: 28px;
+
+  align-items: start;
+}
+
+.pp-about .about-note {
+  grid-area: note;
+}
+
+.pp-about .about-story {
+  grid-area: story;
+  min-width: 0;
+}
+
+.pp-about .pp-about__card {
+  grid-area: avatar;
+
+  width: 100%;
+  max-width: 360px;
+  min-width: 0;
+
+  padding: 14px;
+
+  background: #e9edfc;
+  border: 1px solid #cfd5e5;
+}
+
+/* 2. Avatar card heading */
+
+.pp-about__card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+
+  gap: 8px;
+  margin-bottom: 12px;
+
+  color: #39456c;
+
+  font-family: var(--mono);
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.pp-about__dot {
+  display: inline-block;
+
+  width: 7px;
+  height: 7px;
+
+  margin-right: 6px;
+
+  background: var(--blue);
+  border-radius: 50%;
+}
+
+/* 3. Interactive portrait button */
+
+.pp-about__portrait-button {
+  position: relative;
+  isolation: isolate;
+
+  display: grid;
+  place-items: end center;
+
+  width: 100%;
+  aspect-ratio: 1 / 1;
+
+  padding: 0;
+  margin: 0;
+
+  overflow: hidden;
+  appearance: none;
+
+  border: 1px solid #cdd5ec;
+  border-radius: 0;
+
+  background: radial-gradient(
+    circle at 50% 40%,
+    #fafbff 0%,
+    #e0e7fa 65%,
+    #d7e1fa 100%
+  );
+
+  cursor: pointer;
+}
+
+.pp-about__portrait-button:hover {
+  border-color: var(--blue);
+}
+
+.pp-about__portrait-button:focus-visible {
+  outline: 3px solid var(--blue);
+  outline-offset: 4px;
+}
+
+/* 4. Subtle grid behind the avatar */
+
+.pp-about__portrait-button::before {
+  content: "";
+
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+
+  opacity: 0.24;
+
+  background-image:
+    linear-gradient(#b7c4df 1px, transparent 1px),
+    linear-gradient(90deg, #b7c4df 1px, transparent 1px);
+
+  background-size: 32px 32px;
+}
+
+/* 5. Size and gently animate the SVG */
+
+.pp-about__avatar {
+  width: min(100%, 355px);
+  aspect-ratio: 1 / 1;
+
+  transform-origin: 50% 80%;
+
+  animation: pp-float 6s ease-in-out infinite;
+}
+
+.pp-about__svg {
+  display: block;
+
+  width: 100%;
+  height: 100%;
+
+  overflow: hidden;
+}
+
+@keyframes pp-float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-7px);
+  }
+}
+
+/* 6. Blink the avatar's eyes */
+
+.pp-about__svg #svga-group-eyes-left-move {
+  transform-origin: 74px 86px;
+  animation: pp-blink 7.2s ease-in-out infinite;
+}
+
+.pp-about__svg #svga-group-eyes-right-move {
+  transform-origin: 126px 86px;
+  animation: pp-blink 7.2s ease-in-out infinite;
+}
+
+@keyframes pp-blink {
+  0%, 42%, 44%, 74%, 76%, 100% {
+    transform: scaleY(1);
+  }
+
+  43%, 75% {
+    transform: scaleY(0.07);
+  }
+}
+
+/* 7. Prepare the eyes for cursor tracking */
+
+.pp-about__svg #svga-group-eyesiriscontrol-left,
+.pp-about__svg #svga-group-eyesiriscontrol-right {
+  transform: translate(
+    var(--pp-eye-x, 0px),
+    var(--pp-eye-y, 0px)
+  );
+
+  transition: transform 0.18s ease-out;
+}
+
+/* 8. Waving hand */
+
+.pp-about__wave-hand {
+  position: absolute;
+  z-index: 3;
+
+  width: 29%;
+  height: auto;
+
+  right: 2%;
+  bottom: -4%;
+
+  opacity: 0;
+  pointer-events: none;
+
+  transform-origin: 56% 94%;
+}
+
+.pp-about__portrait-button.is-waving .pp-about__wave-hand {
+  animation: pp-hand-wave 1.3s ease-in-out both;
+}
+
+.pp-about__portrait-button.is-waving .pp-about__avatar {
+  animation: pp-greet 1.3s ease-in-out both;
+}
+
+@keyframes pp-hand-wave {
+  0% {
+    opacity: 0;
+    transform: translateY(22px) rotate(-35deg);
+  }
+
+  14% {
+    opacity: 1;
+    transform: translateY(0) rotate(-12deg);
+  }
+
+  28%, 58% {
+    opacity: 1;
+    transform: rotate(18deg);
+  }
+
+  43%, 73% {
+    opacity: 1;
+    transform: rotate(-13deg);
+  }
+
+  90% {
+    opacity: 1;
+    transform: rotate(0);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateY(20px) rotate(-25deg);
+  }
+}
+
+@keyframes pp-greet {
+  0%, 100% {
+    transform: translateY(0);
+  }
+
+  30%, 65% {
+    transform: translateY(-5px) rotate(-1.2deg);
+  }
+}
+
+/* 9. Caption and written greeting */
+
+.pp-about__card-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+
+  gap: 12px;
+  padding: 14px 2px 4px;
+}
+
+.pp-about__caption {
+  margin: 0;
+
+  color: #3f4a68;
+  font-size: 0.8rem;
+  line-height: 1.5;
+}
+
+.pp-about__hint {
+  color: #5b6890;
+
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+}
+
+.pp-about__greeting {
+  margin: 12px 0 0;
+  padding: 14px;
+
+  background: #ffffff;
+  border: 1px solid #d1d8e9;
+
+  color: #384359;
+  font-size: 0.88rem;
+  line-height: 1.6;
+}
+
+.pp-about__greeting strong {
+  color: #273564;
+}
+
+.pp-about__greeting[hidden] {
+  display: none;
+}
+
+/* 10. Tablet and mobile layout */
+
+@media (max-width: 900px) {
+  .pp-about .about-grid {
+    grid-template-columns: 1fr;
+
+    grid-template-areas:
+      "note"
+      "avatar"
+      "story";
+
+    gap: 30px;
+  }
+
+  .pp-about .pp-about__card {
+    max-width: 400px;
+  }
+}
+
+@media (max-width: 480px) {
+  .pp-about .pp-about__card {
+    padding: 10px;
+  }
+}
+
+/* 11. Respect reduced-motion preferences */
+
+@media (prefers-reduced-motion: reduce) {
+  .pp-about__avatar,
+  .pp-about__svg #svga-group-eyes-left-move,
+  .pp-about__svg #svga-group-eyes-right-move,
+  .pp-about__portrait-button.is-waving .pp-about__wave-hand,
+  .pp-about__portrait-button.is-waving .pp-about__avatar {
+    animation: none !important;
+  }
+
+  .pp-about__svg #svga-group-eyesiriscontrol-left,
+  .pp-about__svg #svga-group-eyesiriscontrol-right {
+    transition: none !important;
+  }
+
+  .pp-about__portrait-button.is-waving .pp-about__wave-hand {
+    opacity: 1;
+  }
+}
