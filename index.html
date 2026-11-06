@@ -13,35 +13,77 @@
 
 <a class="skip-link" href="#main-content">Skip to main content</a>
 
+
+<!-- MAIN SITE HEADER -->
+
 <header class="site-header">
   <div class="container nav-container">
 
-    <a class="logo" href="#hero" aria-label="Prinel Pillay home">
+    <!-- BRAND -->
 
-  <img
-    class="logo-photo"
-    src="assets/images/prinel-profile.jpg"
-    alt=""
-  >
+    <a
+      class="logo"
+      href="#hero"
+      aria-label="Prinel Pillay - Back to homepage"
+    >
 
-  <span class="logo-name">Prinel Pillay</span>
+      <img
+        class="logo-photo"
+        src="assets/images/prinel-profile.jpg"
+        alt=""
+      >
 
-  <span class="logo-role">
-    / developer
-  </span>
+      <span class="logo-text">
 
-</a>
-   
-<nav class="main-nav" aria-label="Main navigation">
-  <a href="#about">About Me</a>
-  <a href="#selected-work">Work</a>
-  <a href="#software-engineering">Engineering</a>
-  <a href="#motorsport-lab">Motorsport Lab</a>
-  <a href="#contact">Contact</a>
+        <span class="logo-name">
+          Prinel Pillay
+        </span>
+
+        <span class="logo-role">
+          Full-Stack Developer
+        </span>
+
+      </span>
+
+    </a>
+
+
+    <!-- NAVIGATION -->
+
+    <nav
+      class="main-nav"
+      aria-label="Main navigation"
+    >
+
+      <a href="#about">
+        About
+      </a>
+
+      <a href="#selected-work">
+        Projects
+      </a>
+
+      <a href="#software-engineering">
+        Engineering
+      </a>
+
+      <a href="#motorsport-lab">
+        Motorsport Lab
+      </a>
+
+      <a
+        href="#contact"
+        class="nav-contact"
+      >
+        Let's Talk
+        <span aria-hidden="true">↗</span>
+      </a>
+
     </nav>
 
   </div>
 </header>
+
 
   <main id="main-content">
 
@@ -50,107 +92,92 @@
      HERO — INTRODUCTION
      ========================================================== -->
 
-<section id="hero" class="hero">
+
+<!-- ==========================================================
+     HOMEPAGE — INTRODUCTION AND FEATURED WORK
+     ========================================================== -->
+
+<section id="hero" class="hero hero-editorial">
   <div class="container hero-content">
 
-    <div class="hero-meta">
-      <span>Full-Stack Developer &amp; Digital Systems Engineer</span>
-      <span>5+ Years of Experience</span>
-    </div>
+    <!-- TOP INTRODUCTION -->
 
-    <h1>
-      I build the interface.
-      <span>And the systems behind it.</span>
-    </h1>
+    <div class="hero-topline">
 
-    <p class="hero-intro">
-      I'm Prinel, a developer with over five years of
-      hands-on experience designing, developing and
-      improving real-world digital systems.
-    </p>
+      
+<span class="hero-topline-name">
+  Johannesburg, South Africa
+</span>
 
-    <p class="hero-intro hero-intro-secondary">
-      From responsive websites and interactive tools
-      to PHP development, CRM integrations and automation,
-      I enjoy understanding how everything fits together,
-      solving the tricky problems and making technology
-      genuinely useful for the people relying on it.
-    </p>
-
-    <div class="hero-actions">
-
-      <a
-        class="button button-primary"
-        href="#selected-work"
-      >
-        Explore my projects
-        <span aria-hidden="true">↗</span>
-      </a>
-
-      <a
-        class="button button-secondary"
-        href="#contact"
-      >
-        Get in touch
-        <span aria-hidden="true">→</span>
-      </a>
-
-    </div>
-
-    <div class="hero-focus">
-
-      <span class="hero-focus-label">
-        My work in practice
       </span>
 
-      <span>
-        Web development, user experience,
-        interactive applications, backend logic,
-        CRM systems and workflow automation.
+      <span class="hero-topline-experience">
+        5+ years building for real users
       </span>
 
     </div>
 
-    <a
-      class="hero-github-link"
-      href="https://github.com/Prinelope"
-      target="_blank"
-      rel="noopener noreferrer"
-    >
-      Explore my GitHub
-      <span aria-hidden="true">↗</span>
-    </a>
 
-  </div>
-</section>
+    <!-- MAIN INTRODUCTION -->
 
+    <div class="hero-main">
 
-<section id="about" class="about pp-about">
-  <div class="container">
+      <p class="hero-role">
+        Full-Stack Developer &amp; Digital Systems Engineer
+      </p>
 
-    <div class="about-intro">
-      <p class="section-label">01 / About</p>
+      <h1>
+        A designer's eye.
+        <br>
+        A developer's toolkit.
+        <br>
+        <span>And a mind for how systems work.</span>
+      </h1>
 
-      <h2>
-        I like understanding how things work,
-        where people get stuck, and how technology
-        can make the process better.
-      </h2>
-    </div>
+      <div class="hero-copy">
 
-    <div class="about-grid">
-
-      <div class="about-note">
-        <p class="about-note-label">/ approach</p>
-
-        <p>
-          I tend to look at a process and start asking questions:
-          why does this take so many steps, what is making it difficult
-          for the user, and is there a clearer way to build it?
+        <p class="hero-intro">
+          I'm Prinel, a developer with over five years of
+          hands-on experience designing, developing and
+          improving real-world digital systems.
         </p>
+
+        <p class="hero-intro hero-intro-secondary">
+          From responsive websites and interactive tools
+          to PHP development, CRM integrations and automation,
+          I enjoy understanding how everything fits together,
+          solving the tricky problems and making technology
+          genuinely useful for the people relying on it.
+        </p>
+
       </div>
 
-      <aside class="pp-about__card" aria-label="Interactive illustrated avatar with a click-to-wave greeting">
+
+      <!-- MAIN ACTIONS -->
+
+      <div class="hero-actions">
+
+        <a
+          class="button button-primary"
+          href="#selected-work"
+        >
+          Explore my projects
+          <span aria-hidden="true">↗</span>
+        </a>
+
+        <a
+          class="button button-secondary"
+          href="#contact"
+        >
+          Get in touch
+          <span aria-hidden="true">→</span>
+        </a>
+
+      </div>
+      
+<aside
+  class="pp-about__card hero-avatar"
+  aria-label="Interactive illustrated avatar with a click-to-wave greeting">
         <div class="pp-about__card-top"><span>Illustrated introduction</span><span><span class="pp-about__dot" aria-hidden="true"></span>Interactive</span></div>
         <button class="pp-about__portrait pp-about__portrait-button" id="pp-about-wave" type="button"
           aria-label="Wave hello to Prinel's illustrated avatar" aria-controls="pp-about-greeting" aria-expanded="false">
@@ -428,6 +455,174 @@
         </p>
       </aside>
 
+
+      <a
+        class="hero-github-link"
+        href="https://github.com/Prinelope"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Explore my GitHub
+        <span aria-hidden="true">↗</span>
+      </a>
+
+    </div>
+
+
+    <!-- FEATURED PROJECTS -->
+
+    <div
+      class="hero-featured"
+      aria-labelledby="hero-featured-heading"
+    >
+
+      <div class="hero-featured-heading">
+
+        <div>
+          <span class="hero-featured-kicker">
+            A LOOK AT MY WORK
+          </span>
+
+          <h2 id="hero-featured-heading">
+            More than just a website.
+          </h2>
+
+          <p>
+            A few examples of what I've designed,
+            developed and brought to life.
+          </p>
+        </div>
+
+        <a
+          href="#selected-work"
+          class="hero-featured-all"
+        >
+          View selected work
+          <span aria-hidden="true">↗</span>
+        </a>
+
+      </div>
+
+
+      <div class="hero-featured-grid">
+
+        <!-- PROJECT 01 -->
+
+        <article class="hero-project hero-project-engineering">
+
+          <div class="hero-project-top">
+
+            <span class="hero-project-number">
+              01
+            </span>
+
+            <span class="hero-project-category">
+              Interactive Tool &amp; Automation
+            </span>
+
+          </div>
+
+          <div class="hero-project-content">
+
+            <h3>
+              Executive Function Questionnaire
+            </h3>
+
+            <p>
+              An interactive assessment with scoring
+              logic, automated reporting and personalised
+              PDF results.
+            </p>
+
+          </div>
+
+          <div class="hero-project-bottom">
+
+            <span>
+              JavaScript · Google Apps Script · Automation
+            </span>
+
+          </div>
+
+        </article>
+
+
+        <!-- PROJECT 02 -->
+
+        <article class="hero-project hero-project-client">
+
+          <div class="hero-project-top">
+
+            <span class="hero-project-number">
+              02
+            </span>
+
+            <span class="hero-project-category">
+              Freelance Client Project
+            </span>
+
+          </div>
+
+          <div class="hero-project-content">
+
+            <h3>
+              KimZan Travel
+            </h3>
+
+            <p>
+              A responsive travel website I designed
+              and developed for a client, bringing
+              their brand, destinations and enquiry
+              experience together.
+            </p>
+
+          </div>
+
+          <div class="hero-project-bottom">
+
+            <span>
+              Web Design · HTML · CSS · JavaScript
+            </span>
+
+          </div>
+
+        </article>
+
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+
+
+<section id="about" class="about pp-about">
+  <div class="container">
+
+    <div class="about-intro">
+      <p class="section-label">01 / About</p>
+
+      <h2>
+        I like understanding how things work,
+        where people get stuck, and how technology
+        can make the process better.
+      </h2>
+    </div>
+
+    <div class="about-grid">
+
+      <div class="about-note">
+        <p class="about-note-label">/ approach</p>
+
+        <p>
+          I tend to look at a process and start asking questions:
+          why does this take so many steps, what is making it difficult
+          for the user, and is there a clearer way to build it?
+        </p>
+      </div>
+
+      
 
       <div class="about-story">
 
